@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment files
+.env
+*.env
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# PyCharm or VSCode project files
+.idea/
+.vscode/
+
+# Test cache and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Logs and temp
+*.log
+*.tmp
+*.swp
+
+# ChromeDriver downloads (optional)
+chromedriver.exe
+chromedriver.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
