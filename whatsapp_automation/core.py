@@ -7,8 +7,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from selenium.webdriver.common.keys import Keys
 
-import whatsapp_automation.whatsapp_automation.utils as utils
-import whatsapp_automation.whatsapp_automation.exceptions as exceptions
+import whatsapp_automation.utils as utils
+import whatsapp_automation.exceptions as exceptions
 
 class Whatsapp:
     """
@@ -140,3 +140,6 @@ class Whatsapp:
             return True
         except:
             return False
+    
+    def exit(self):
+        self.driver.quit()

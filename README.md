@@ -29,3 +29,9 @@ Use responsibly and at your own risk.
 ```bash
 pip install selenium
 ```
+
+### Testing Locally
+To test copy the sample.env to a .env file in the root directory, then run: 
+```
+pytest
+``` 
