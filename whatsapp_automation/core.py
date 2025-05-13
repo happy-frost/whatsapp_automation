@@ -68,7 +68,7 @@ class Whatsapp:
         if "+" in input or "_" in input:
             try:
                 utils.check_number(input)
-                self.driver.get("https://web.whatsapp.com/send?phone=" + "phone_no")
+                self.driver.get("https://web.whatsapp.com/send?phone=" + input)
             except exceptions.InvalidPhoneNumber:
                 return False
         else: 
