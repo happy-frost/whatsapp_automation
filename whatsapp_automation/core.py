@@ -91,7 +91,10 @@ class Whatsapp:
         try:
             textBox = self.driver.find_element(By.CSS_SELECTOR,"#main > footer > div.x1n2onr6.xhtitgo.x9f619.x78zum5.x1q0g3np.xuk3077.xjbqb8w.x1wiwyrm.x1gryazu.xkrivgy.xquzyny.xnpuxes.copyable-area > div > span > div > div._ak1r > div > div.x1n2onr6.xh8yej3.xjdcl3y.lexical-rich-text-input > div.x1hx0egp.x6ikm8r.x1odjw0f.x1k6rcq7.x6prxxf > p")
             textBox.click()
-            textBox.send_keys(message)
+            lines = message.split('\n')
+            for line in lines:
+                textBox.send_keys(line)
+                textBox.send_keys(Keys.SHIFT + Keys.ENTER)
             textBox.send_keys(Keys.ENTER)
             return True
         except:
