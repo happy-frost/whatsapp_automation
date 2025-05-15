@@ -14,7 +14,7 @@ class Whatsapp:
     """
     A class to initialize the whatsapp session.
     """
-    def __init__(self):
+    def __init__(self, user_data_dir:str='', profile_dir:str='Default'):
         """
         Initalization function that starts the driver and save it to the class to be used by other functions.
         After running this funciton, user have to manually scan the qr code to being the session.
@@ -28,6 +28,9 @@ class Whatsapp:
         options.add_argument("--disable-setuid-sandbox")
         options.add_argument("--remote-debugging-port=9222")
         options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36')
+        if user_data_dir:
+            options.add_argument(f"--user-data-dir={user_data_dir}")
+            options.add_argument(f"--profile-directory={profile_dir}")
 
         self.driver = webdriver.Chrome(options=options)
         stealth(self.driver,

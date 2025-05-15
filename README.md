@@ -30,6 +30,31 @@ Use responsibly and at your own risk.
 pip install selenium
 ```
 
+### Using Google Chrome Profile
+If you would like to use a google chrome profile for your chrome browser, simply add the user-data-dir as the first argument to the initilization function and profile-directory as the second argument (optional value defualts to "Default")
+
+```
+whatsapp = Whatsapp(user_data_dir,profile_dir)
+```
+You can try using the profile directory at the default location. However, if that does not work, fully close all chrome profile and launch it with a clean user data directory:
+Commands for windows
+1. Close all chrome process
+```
+taskkill /f /im chrome.exe
+```
+2. Launch Chrome with Clean User Data Directory
+```
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --user-data-dir="C:\ChromeProfiles\MyChromeProfile"
+```
+3. Configure the profile
+
+Do any configuration as you may require
+
+4. Add the path to your profile to the arguments when instatiating the Whatsapp class
+```
+whatsapp = Whatsapp(user_data_dir,profile_dir)
+```
+
 ### Testing Locally
 To test copy the sample.env to a .env file in the root directory, then run: 
 ```
