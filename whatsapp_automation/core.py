@@ -92,7 +92,7 @@ class Whatsapp:
         output: success (boolean)
         """
         try:
-            textBox = self.driver.find_element(By.CSS_SELECTOR,"#main > footer > div.x1n2onr6.xhtitgo.x9f619.x78zum5.x1q0g3np.xuk3077.xjbqb8w.x1wiwyrm.x1gryazu.xkrivgy.xquzyny.xnpuxes.copyable-area > div > span > div > div._ak1r > div > div.x1n2onr6.xh8yej3.xjdcl3y.lexical-rich-text-input > div.x1hx0egp.x6ikm8r.x1odjw0f.x1k6rcq7.x6prxxf > p")
+            textBox = self.driver.find_element(By.XPATH,'//*[@id="main"]/footer/div[1]/div/span/div/div[2]/div[1]/div[2]/div[1]/p')            
             textBox.click()
             lines = message.split('\n')
             for line in lines:
@@ -110,10 +110,10 @@ class Whatsapp:
         output: success (boolean)
         """
         try:
-            addButton = self.driver.find_element(By.CSS_SELECTOR,"#main > footer > div.x1n2onr6.xhtitgo.x9f619.x78zum5.x1q0g3np.xuk3077.xjbqb8w.x1wiwyrm.x1gryazu.xkrivgy.xquzyny.xnpuxes.copyable-area > div > span > div > div._ak1r > div > div.x100vrsf.x1vqgdyp.x78zum5.x6s0dn4.xpvyfi4 > button > span")
+            addButton = self.driver.find_element(By.XPATH,'//*[@id="main"]/footer/div[1]/div/span/div/div[1]/div/button')
             addButton.click()
 
-            addDocumentInput = self.driver.find_element(By.CSS_SELECTOR,"#app > div > span:nth-child(7) > div > ul > div > div > div:nth-child(1) > li > div > input[type=file]")
+            addDocumentInput = self.driver.find_element(By.XPATH,'//*[@id="app"]/div/span[6]/div/ul/div/div/div[1]/li/div/input')
             addDocumentInput.send_keys(file_path)
 
             captionTextBox = WebDriverWait(self.driver,timeout=10).until(
@@ -132,10 +132,10 @@ class Whatsapp:
         output: success (boolean)
         """
         try:
-            addButton = self.driver.find_element(By.CSS_SELECTOR,"#main > footer > div.x1n2onr6.xhtitgo.x9f619.x78zum5.x1q0g3np.xuk3077.xjbqb8w.x1wiwyrm.x1gryazu.xkrivgy.xquzyny.xnpuxes.copyable-area > div > span > div > div._ak1r > div > div.x100vrsf.x1vqgdyp.x78zum5.x6s0dn4.xpvyfi4 > button > span")
+            addButton = self.driver.find_element(By.XPATH,'//*[@id="main"]/footer/div[1]/div/span/div/div[1]/div/button')
             addButton.click()
 
-            addDocumentInput = self.driver.find_element(By.CSS_SELECTOR,"#app > div > span:nth-child(7) > div > ul > div > div > div:nth-child(2) > li > div > input[type=file]")
+            addDocumentInput = self.driver.find_element(By.XPATH,'//*[@id="app"]/div/span[6]/div/ul/div/div/div[2]/li/div/input')
             addDocumentInput.send_keys(file_path)
 
             captionTextBox = WebDriverWait(self.driver,timeout=10).until(
