@@ -1,3 +1,7 @@
+import os
+import shutil
+import time
+
 from selenium import webdriver
 from selenium_stealth import stealth
 
@@ -147,5 +151,41 @@ class Whatsapp:
         except:
             return False
     
+    def find_file(self, target_file_name:str, source_folder:str, destination_folder: str) -> bool:
+        chatHistory = self.driver.find_element(By.XPATH,'//*[@id="main"]/div[3]/div/div[2]/div[2]')
+        isToday = False     
+        target_element = None
+        try:
+            for chat in chatHistory.find_elements(By.CSS_SELECTOR,'div > div > span'):
+                if chat.get_attribute('innerHTML') == "TODAY":
+                    isToday = True
+
+                if isToday and chat.get_attribute('innerHTML').__contains__(target_file_name):
+                    target_element = chat
+                    break
+
+            if not target_element: # if it is none
+                return False
+
+            target_element.click()
+
+            time.sleep(10)
+
+            # Create destination folder if it doesn't exist
+            if not os.path.exists(destination_folder):
+                os.makedirs(destination_folder)
+
+            # Move only .xls and .xlsx files
+            for file_name in os.listdir(source_folder):
+                if file_name == target_file_name:
+                    src_file = os.path.join(source_folder, file_name)
+                    dest_file = os.path.join(destination_folder, file_name)
+                    shutil.move(src_file, dest_file)
+                    return True
+            
+            return False
+        except Exception as e:
+            return False
+
     def exit(self):
         self.driver.quit()
