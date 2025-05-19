@@ -8,11 +8,14 @@ from selenium_stealth import stealth
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 from selenium.webdriver.common.keys import Keys
+
+from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
+
 
 import whatsapp_automation.utils as utils
 import whatsapp_automation.exceptions as exceptions
+
 
 class Whatsapp:
     """
@@ -152,17 +155,43 @@ class Whatsapp:
             return False
     
     def find_file(self, target_file_name:str, source_folder:str, destination_folder: str) -> bool:
-        chatHistory = self.driver.find_element(By.XPATH,'//*[@id="main"]/div[3]/div/div[2]/div[2]')
         isToday = False     
         target_element = None
         try:
-            for chat in chatHistory.find_elements(By.CSS_SELECTOR,'div > div > span'):
-                if chat.get_attribute('innerHTML') == "TODAY":
-                    isToday = True
+            chat_xpath = '//*[@id="main"]/div[3]/div/div[2]/div[2]'
+            max_attempts = 5
+            for attempt in range(max_attempts):
+                try:
+                    # Wait until the element is present and visible
+                    WebDriverWait(self.driver, 10).until(
+                        EC.presence_of_element_located((By.XPATH, chat_xpath))
+                    )
+                    WebDriverWait(self.driver, 10).until(
+                        EC.visibility_of_element_located((By.XPATH, chat_xpath))
+                    )
 
-                if isToday and chat.get_attribute('innerHTML').__contains__(target_file_name):
-                    target_element = chat
-                    break
+                    # Re-locate it again (fresh reference)
+                    chat_history = self.driver.find_element(By.XPATH, chat_xpath)
+
+                    # Now try to click
+                    chat_history.click()
+                    time.sleep(1)
+                    for chat in chat_history.find_elements(By.CSS_SELECTOR,'div > div > span'):
+                        if chat.get_attribute('innerHTML') == "TODAY":
+                            isToday = True
+
+                        if isToday and chat.get_attribute('innerHTML').lower().__contains__(target_file_name):
+                            target_element = chat
+                            break
+                    break  # Success, break the loop
+
+                except StaleElementReferenceException:
+                    print(f"[Attempt {attempt + 1}] Stale element, retrying...")
+                    time.sleep(1)
+
+                except TimeoutException:
+                    print(f"[Attempt {attempt + 1}] Element not found in time, retrying...")
+                    time.sleep(1)
 
             if not target_element: # if it is none
                 return False
@@ -177,14 +206,15 @@ class Whatsapp:
 
             # Move only .xls and .xlsx files
             for file_name in os.listdir(source_folder):
-                if file_name == target_file_name:
+                if file_name.lower() == target_file_name:
                     src_file = os.path.join(source_folder, file_name)
-                    dest_file = os.path.join(destination_folder, file_name)
+                    dest_file = os.path.join(destination_folder, file_name.lower())
                     shutil.move(src_file, dest_file)
                     return True
             
             return False
         except Exception as e:
+            print(e)
             return False
 
     def exit(self):
