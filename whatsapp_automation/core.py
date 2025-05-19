@@ -154,7 +154,7 @@ class Whatsapp:
         except:
             return False
     
-    def find_file(self, target_file_name:str, source_folder:str, destination_folder: str) -> bool:
+    def find_file(self, target_file_name:str, source_folder:str, destination_folder: str, get_most_recent:bool = False) -> bool:
         isToday = False     
         target_element = None
         try:
@@ -182,8 +182,9 @@ class Whatsapp:
 
                         if isToday and chat.get_attribute('innerHTML').lower().__contains__(target_file_name):
                             target_element = chat
-                            break
-                    break  # Success, break the loop
+                            if not get_most_recent: # do not break early to find most recent item
+                                break                    
+                    break  # Success, break the loop of retry for stale element
 
                 except StaleElementReferenceException:
                     print(f"[Attempt {attempt + 1}] Stale element, retrying...")
