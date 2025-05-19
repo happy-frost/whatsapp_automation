@@ -43,8 +43,9 @@ Commands for windows
 taskkill /f /im chrome.exe
 ```
 2. Launch Chrome with Clean User Data Directory
+Go to the path with chrome.exe and do:
 ```
-"C:\Program Files\Google\Chrome\Application\chrome.exe" --user-data-dir="C:\ChromeProfiles\MyChromeProfile"
+.\chrome.exe --user-data-dir="C:\ChromeProfiles\MyChromeProfile"
 ```
 3. Configure the profile
 
