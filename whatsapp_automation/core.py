@@ -124,8 +124,8 @@ class Whatsapp:
             addDocumentInput.send_keys(file_path)
 
             captionTextBox = WebDriverWait(self.driver,timeout=10).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR,"#app > div > div.x78zum5.xdt5ytf.x5yr21d > div > div.x10l6tqk.x13vifvy.x17qophe.x78zum5.xh8yej3.x5yr21d.x6ikm8r.x10wlt62.x47corl > div.x9f619.x1n2onr6.x5yr21d.x6ikm8r.x10wlt62.x17dzmu4.x1i1dayz.x2ipvbc.x1w8yi2h.xyyilfv.x1iyjqo2.xa1v5g2 > span > div > div > div > div.x1n2onr6.xyw6214.x78zum5.x1r8uery.x1iyjqo2.xdt5ytf.x1hc1fzr.x6ikm8r.x10wlt62 > div > div.x1n2onr6.x78zum5.x98rzlu.xdt5ytf.x1qughib.x6ikm8r.x10wlt62 > div.x1n2onr6.x78zum5.x6s0dn4.xl56j7k.xbktkl8.x1y1aw1k.x1pi30zi.xwib8y2.x1swvt13 > div > div > div.x1n2onr6.xh8yej3.x1k70j0n.x11i5rnm.xzueoph.x1mh8g0r.xisnujt.xzwifym.x1vvkbs.x126k92a.x1hx0egp.lexical-rich-text-input > div.x1hx0egp.x6ikm8r.x1odjw0f.x1k6rcq7.x1lkfr7t > p"))
-                )
+                    EC.presence_of_element_located((By.XPATH,'//*[@id="app"]/div/div[3]/div/div[2]/div[2]/span/div/div/div/div[2]/div/div[1]/div[3]/div/div/div[1]/div[1]/p'))
+                    )
             captionTextBox.send_keys(caption)
             captionTextBox.send_keys(Keys.ENTER)
             return True
@@ -199,7 +199,7 @@ class Whatsapp:
 
             target_element.click()
 
-            time.sleep(10)
+            time.sleep(15)
 
             # Create destination folder if it doesn't exist
             if not os.path.exists(destination_folder):
